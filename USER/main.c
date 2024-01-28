@@ -13,12 +13,12 @@
 
 
 /************************************************
-ÏîÄ¿Ãû³Æ£º»ùÓÚSTM32µÄÌ°³ÔÉß´ó×÷Õ½
-¿ª·¢»·¾³£ºKeli5 + ÕıµãÔ­×ÓSTM32F767
-×÷		Õß£º¼ÆÊıÑ§Ôº2022¼¶¼Æ¿Æ°à Ò×Ôó
+é¡¹ç›®åç§°ï¼šåŸºäºSTM32çš„è´ªåƒè›‡å¤§ä½œæˆ˜
+å¼€å‘ç¯å¢ƒï¼šKeli5 + æ­£ç‚¹åŸå­STM32F767
+ä½œ    è€…ï¼šyzezeze
 ************************************************/
 
-//»­±ÊÑÕÉ«¶¨Òå
+//ç”»ç¬”é¢œè‰²å®šä¹‰
 u32 color1  = WHITE;
 u32 color2  = BLACK;
 u32 color3  = BLUE;
@@ -30,22 +30,22 @@ u32 color8  = MAGENTA;
 u32 color9  = GREEN;
 u32 color10 = CYAN;
 u32 color11 = YELLOW;
-u32 color12 = BROWN; //×ØÉ«
-u32 color13 = BRRED; //×ØºìÉ«
-u32 color14 = GRAY; //»ÒÉ«
+u32 color12 = BROWN; //æ£•è‰²
+u32 color13 = BRRED; //æ£•çº¢è‰²
+u32 color14 = GRAY; //ç°è‰²
 
-//GUIÑÕÉ«¶¨Òå
-u32 color15 = DARKBLUE;	//ÉîÀ¶É«
-u32 color16 = LIGHTBLUE;	//Ç³À¶É«  
-u32 color17 = GRAYBLUE; //»ÒÀ¶É«
-//ÒÔÉÏÈıÉ«ÎªPANELµÄÑÕÉ« 
-u32 color18 = LIGHTGREEN; //Ç³ÂÌÉ«
-//	u32 color19 = LIGHTGRAY; //Ç³»ÒÉ«(PANNEL)
-u32 color20 = LGRAY; //Ç³»ÒÉ«(PANNEL),´°Ìå±³¾°É«
-u32 color21 = LGRAYBLUE; //Ç³»ÒÀ¶É«(ÖĞ¼ä²ãÑÕÉ«)
-u32 color22 = LBBLUE; //Ç³×ØÀ¶É«(Ñ¡ÔñÌõÄ¿µÄ·´É«)
+//GUIé¢œè‰²å®šä¹‰
+u32 color15 = DARKBLUE;	//æ·±è“è‰²
+u32 color16 = LIGHTBLUE;	//æµ…è“è‰²  
+u32 color17 = GRAYBLUE; //ç°è“è‰²
+//ä»¥ä¸Šä¸‰è‰²ä¸ºPANELçš„é¢œè‰² 
+u32 color18 = LIGHTGREEN; //æµ…ç»¿è‰²
+//	u32 color19 = LIGHTGRAY; //æµ…ç°è‰²(PANNEL)
+u32 color20 = LGRAY; //æµ…ç°è‰²(PANNEL),çª—ä½“èƒŒæ™¯è‰²
+u32 color21 = LGRAYBLUE; //æµ…ç°è“è‰²(ä¸­é—´å±‚é¢œè‰²)
+u32 color22 = LBBLUE; //æµ…æ£•è“è‰²(é€‰æ‹©æ¡ç›®çš„åè‰²)
 
-#define MAX_LENGTH 50 //×î´óÖµ
+#define MAX_LENGTH 50 //æœ€å¤§å€¼
 #define true 1
 #define false 0
 #define pix_width 4
@@ -65,7 +65,7 @@ struct
 	int lenth;
 	int direction;
 }snake;
-//³õÊ¼»¯Ì°³ÔÉß
+//åˆå§‹åŒ–è´ªåƒè›‡
 void init_snake()
 {	
 	int i;
@@ -81,7 +81,7 @@ void init_snake()
 		
 	}
 }
-//ÉíÌåÅö×²ÅĞ¶¨
+//èº«ä½“ç¢°æ’åˆ¤å®š
 int is_hit_body() {
     int i;
     int x = snake.snake_grid[0][0];
@@ -98,7 +98,7 @@ int is_hit_body() {
     return false;
 }
 
-//±ß½ç¿òÅö×²ÅĞ¶¨
+//è¾¹ç•Œæ¡†ç¢°æ’åˆ¤å®š
 int is_hit_boundary() {
     int x = snake.snake_grid[0][0];
     int y = snake.snake_grid[0][1];
@@ -112,32 +112,32 @@ int is_hit_boundary() {
         return false;
     }
 }
-//¸÷ÖÖ»æÖÆº¯Êı
-//»æÖÆµØÍ¼
+//å„ç§ç»˜åˆ¶å‡½æ•°
+//ç»˜åˆ¶åœ°å›¾
 void paint_map()
 {
 	int x;
 	for(x=0;x<pix_width;x++)
 	LCD_DrawRectangle(10+x,10+x,464+x,600+x);
 }
-//»æÖÆÌ°³ÔÉßÍ·²¿
+//ç»˜åˆ¶è´ªåƒè›‡å¤´éƒ¨
 void paint_head(int x,int y)
 {	
 	int pix = pix_width;
 	LTDC_Fill(x-pix,y-pix,x+pix,y+pix,color13);
 }
-//»æÖÆÌ°³ÔÉßÉíÌå
+//ç»˜åˆ¶è´ªåƒè›‡èº«ä½“
 void paint_body(int x,int y)
 {
 	int pix=pix_width;
 	LTDC_Fill(x-pix,y-pix,x+pix,y+pix,color12);
 }
-//»æÖÆÊ³Îï
+//ç»˜åˆ¶é£Ÿç‰©
 void paint_food( )
 {
 	LTDC_Fill(food_x-pix_width,food_y-pix_width,food_x+pix_width,food_y+pix_width,color7);
 }
-//È¡Ëæ»úÊı
+//å–éšæœºæ•°
 int getRandon()
 {       
     int min = 24;
@@ -147,7 +147,7 @@ int getRandon()
     int r = (rand() % range) * 8 + min; // ??8???
     return r;
 }
-//¸üĞÂÎ»ÖÃ
+//æ›´æ–°ä½ç½®
 void update_position(){
 	int i;
 	for(i=snake.lenth-1;i>0;i--)
@@ -156,7 +156,7 @@ void update_position(){
 			snake.snake_grid[i][1]=snake.snake_grid[i-1][1];
 		}
 }
-//Ë¢ĞÂÊ³Îï
+//åˆ·æ–°é£Ÿç‰©
 void update_food()
 {
 	int x,y;
@@ -165,7 +165,7 @@ void update_food()
 	food_x=x;
 	food_y=y;
 }
-//³ÔÊ³Îï
+//åƒé£Ÿç‰©
 int is_ated_food()
 {	
 	int x,y;
@@ -176,7 +176,7 @@ int is_ated_food()
 	}
 	return false;	
 }
-//ÒÆ¶¯
+//ç§»åŠ¨
 void move()
 {
 	int ea=false;
@@ -185,9 +185,9 @@ void move()
 	int hit_itself=is_hit_body();
 	ea=is_ated_food();
 	if(ea){
-		PCF8574_WriteBit(BEEP_IO,0);	//¿ØÖÆ·äÃùÆ÷
+		PCF8574_WriteBit(BEEP_IO,0);	//æ§åˆ¶èœ‚é¸£å™¨
 		delay_ms(200);
-		PCF8574_WriteBit(BEEP_IO,1);	//¿ØÖÆ·äÃùÆ÷
+		PCF8574_WriteBit(BEEP_IO,1);	//æ§åˆ¶èœ‚é¸£å™¨
 		++snake.lenth;
 		score+=10;
 		update_food();
@@ -222,7 +222,7 @@ void move()
 	}
 	
 }
-//ÎÄ±¾Êä³ö
+//æ–‡æœ¬è¾“å‡º
 void paint_menu()
 {
 	
@@ -236,7 +236,7 @@ void paint_menu()
 	LCD_ShowString(80,740,50,16,16,s);
 }
 
-//Ë¢ĞÂÆÁÄ»
+//åˆ·æ–°å±å¹•
 void refresh(int grid[][2])
 {	
 	int i;
@@ -251,7 +251,7 @@ void refresh(int grid[][2])
 	paint_food();
 	paint_menu();
 }
-//»ñÈ¡°´¼üÖµ
+//è·å–æŒ‰é”®å€¼
 void detected_key()
 {
 				key=KEY_Scan(1);
@@ -275,14 +275,14 @@ void detected_key()
 					break;
 			}
 }
-//Ê¤Àû½çÃæ
+//èƒœåˆ©ç•Œé¢
 void victory(){
 while(1){
 			LCD_Clear(WHITE);
 			key=KEY_Scan(1);
 			LCD_ShowString(60,200,200,16,16,"Successed!");
 			LCD_ShowString(100,250,200,16,16,"Press reset key to restart");
-			PCF8574_WriteBit(BEEP_IO,0);	//¿ØÖÆ·äÃùÆ÷
+			PCF8574_WriteBit(BEEP_IO,0);	//æ§åˆ¶èœ‚é¸£å™¨
 			delay_ms(200);
 		}
 }
@@ -304,9 +304,9 @@ int main(void)
 			key=KEY_Scan(1);
 			LCD_ShowString(30,200,200,16,16,"Press any key to start");
 			if(key){
-				PCF8574_WriteBit(BEEP_IO,0);	//¿ØÖÆ·äÃùÆ÷
+				PCF8574_WriteBit(BEEP_IO,0);	//æ§åˆ¶èœ‚é¸£å™¨
 				delay_ms(200);
-				PCF8574_WriteBit(BEEP_IO,1);	//¿ØÖÆ·äÃùÆ÷
+				PCF8574_WriteBit(BEEP_IO,1);	//æ§åˆ¶èœ‚é¸£å™¨
 				break;
 			}
 			delay_ms(200);
@@ -327,7 +327,7 @@ int main(void)
 			LCD_Clear(WHITE);
 			key=KEY_Scan(1);
 			LCD_ShowString(60,200,200,16,16,"Game over!");
-			PCF8574_WriteBit(BEEP_IO,0);	//¿ØÖÆ·äÃùÆ÷
+			PCF8574_WriteBit(BEEP_IO,0);	//æ§åˆ¶èœ‚é¸£å™¨
 			delay_ms(200);
 		}
 		
